@@ -16,7 +16,7 @@ export class AppComponent  {
 
  }
  form:FormGroup
- items:string[]=['Male','Female','Others']
+ items=['','Male','Female','Others']
  ngOnInit()
  {
   
@@ -25,7 +25,7 @@ this.form = this.fb.group({email:['',[Validators.required,Validators.pattern( /^
    /^(?=.*[a-zA-Z0-9])(?=.*[@#$%^&*()]).{8,}$/
  )]],
  confirmpassword:['',[Validators.required,this.passwordMatcher.bind(this)]],
- gender:['',[Validators.required,Validators.required]],
+ gender:['',[Validators.required]],
  accept:['',Validators.requiredTrue]
  })
 
@@ -40,35 +40,24 @@ this.form = this.fb.group({email:['',[Validators.required,Validators.pattern( /^
     }
     return null;
 }
- private dropDownValidator(control: FormControl): { [s: string]: boolean } {
-    if (
-        this.form &&
-        (control.value =='')
-    ) {
-        return { validate: true };
-    }
-    return null;
+
+
+ isSubmitted:boolean=false;
+ email:string;
+ password:string;
+ gender:string;
+
+submit()
+{
+
+  this.isSubmitted=true;
+  this.email=this.form.controls.email.value;
+   this.password=this.form.controls.password.value;
+    this.gender=this.form.controls.gender.value;
+
+
 }
 
- //form:FormBuilder;
- dropDownChanged(f):boolean
- {
-   if(f.value=='')
-   {
-     return true;
-
-   }
-   else{
-     
-     return false;
-   }
-   
- }
-
- check(f)
- {
-   console.log(f)
- }
 
 
 }

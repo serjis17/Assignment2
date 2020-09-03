@@ -1,6 +1,16 @@
-<h3>SignUp</h3>
-<div>
-<form [formGroup]="form">
+
+<div *ngIf="isSubmitted">
+  <h3>Submitted Successfully</h3>
+   Email:{{email}}
+   <br>
+   Password:{{password}}
+   <br>
+   Gender:{{gender}}
+ </div>
+
+<div *ngIf="!isSubmitted">
+  <h3>SignUp</h3>
+<form [formGroup]="form" (ngSubmit)="submit()">
   <label for="email">Email</label>
   
   <input type="email" id="email" placeholder="Email" formControlName="email">
@@ -35,24 +45,24 @@
     </div>
 <label for="gender">Gender</label>
 
-<select name="gender" id="gender" #f (change)="dropDownChanged(f)"  >
-  <option value="-1">Select</option>
+<select name="gender" id="gender"  formControlName="gender"  >
+  
    <option *ngFor="let item of items" [value]="item"  >{{item}}</option>
   
   
 </select>
-{{f.value}}
-<div *ngIf="form.get('gender').errors?.required">
+
+<div *ngIf="form.get('gender').errors?.touched&&form.get('gender').errors?.required">
     
    *Select a gender
-   
+
     </div>
 <div>
 <input #f1 formControlName="accept" type="checkbox" id="Accept" name="Accept" value="accept"  > 
 <label for="Accept">Accept</label><br>
 </div>
-<button >Cancel</button>
-<button type="submit" >Submit</button>
+<button type ="reset">Cancel</button>
+<button type="submit" [disabled]="form.invalid" >Submit</button>
 
   
 
@@ -60,7 +70,6 @@
 
 
   </form>
-
-
+ 
 
   </div>
