@@ -16,6 +16,7 @@ export class AppComponent  {
 
  }
  form:FormGroup
+ items:string[]=['','Male','Female','Others']
  ngOnInit()
  {
   
@@ -24,8 +25,8 @@ this.form = this.fb.group({email:['',[Validators.required,Validators.pattern( /^
    /^(?=.*[a-zA-Z0-9])(?=.*[@#$%^&*()]).{8,}$/
  )]],
  confirmpassword:['',[Validators.required,this.passwordMatcher.bind(this)]],
- gender:['',Validators.required],
- accept:['',Validators.required]
+ gender:['',Validators.required,Validators.required],
+ accept:['',Validators.requiredTrue]
  })
 
 
@@ -41,8 +42,24 @@ this.form = this.fb.group({email:['',[Validators.required,Validators.pattern( /^
 }
 
  //form:FormBuilder;
+ dropDownChanged(f):boolean
+ {
+   if(f.value=='')
+   {
+     return true;
 
- 
+   }
+   else{
+     form.get('gender').erros.se
+     return false;
+   }
+   
+ }
+
+ check(f)
+ {
+   console.log(f)
+ }
 
 
 }
